@@ -8,7 +8,7 @@ const typeDefs = gql`
     username: String 
     email: String 
     bookCount: Int
-    savedBooks: [String]
+    savedBooks: [Book]
   }
 
   type Book {
@@ -30,20 +30,26 @@ const typeDefs = gql`
 
   
   input BookContent {
-    authors: [String!]
-    description: String! 
-    title: String!
-    bookId: ID
+    bookId: String
+    authors: [String]
+    description: String
+    title: String
     media: BookMedia
   }
 
   input BookMedia {
+    format: MediaFormat!
     link: String!
   }
+
+  enum MediaFormat {
+    IMAGE
+  }
+  
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    saveBook(content: BookContent): User
+    saveBook(bookId: String!, authors: [String], description: String, title: String): User
   }
 `;
 
