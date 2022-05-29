@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Jumbotron, Container, Card, CardColumns, Button } from 'react-bootstrap';
 import {useMutation, useQuery} from '@apollo/client';
 import { GET_ME } from '../utils/queries';
 import Auth from '../utils/auth';
