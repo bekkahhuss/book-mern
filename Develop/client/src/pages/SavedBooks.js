@@ -7,7 +7,7 @@ import { getSavedBookIds, removeBookId } from '../utils/localStorage';
 import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
-  const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+  // const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
   const { data: userData } = useQuery(GET_ME);
   const user = userData?.me || {};
