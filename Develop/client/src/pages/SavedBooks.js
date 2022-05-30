@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
-import { Jumbotron, Container, Card, CardColumns, Button } from 'react-bootstrap';
-import {useMutation, useQuery} from '@apollo/client';
+import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
 import Auth from '../utils/auth';
 import { getSavedBookIds, removeBookId } from '../utils/localStorage';
 import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
-  // const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+  // const [setUserData] = useState({});
+  const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
   const { data: userData } = useQuery(GET_ME);
+  console.log(userData);
   const user = userData?.me || {};
   console.log(user);
 
   const result1 = user.savedBooks?.length;
   console.log(result1);
 
-  const userDataLength = result1; 
+  const userDataLength = result1;
 
   const [removeBook] = useMutation(REMOVE_BOOK);
 
@@ -29,11 +31,10 @@ const SavedBooks = () => {
     }
 
     try {
-      const {data} = await removeBook({
-        variables: {bookId: bookId }
+      const { data } = await removeBook({
+        variables: { bookId: bookId }
       });
       console.log(data);
-
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
@@ -55,12 +56,12 @@ const SavedBooks = () => {
       </Jumbotron>
       <Container>
         <h2>
-          {userData.savedBooks.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
+          {user.savedBooks?.length
+            ? `Viewing ${userData.savedBooks.length} saved ${user.savedBooks?.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>
-          {userData.savedBooks.map((book) => {
+          {user.savedBooks?.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
                 {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
