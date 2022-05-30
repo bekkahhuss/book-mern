@@ -9,7 +9,7 @@ import Navbar from './components/Navbar';
 
 
 const httpLink = createHttpLink({
-  url: '/graphql',
+  uri: '/graphql',
 });
 
 
