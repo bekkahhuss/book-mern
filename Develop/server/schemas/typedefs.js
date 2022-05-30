@@ -2,19 +2,19 @@
 const { gql } = require('apollo-server-express');
 
 // create our typeDefs
-const typeDefs = gql`
+const typeDefs = gql`  
   type User {
-    _id: ID 
-    username: String 
-    email: String 
-    bookCount: Int
+    _id: ID
+    username: String
+    email: String
+    bookCounter: Int
     savedBooks: [Book]
   }
 
   type Book {
     bookId: ID
     authors: [String]
-    description: String 
+    description: String
     title: String
     image: String
     link: String
@@ -24,21 +24,20 @@ const typeDefs = gql`
     token: ID!
     user: User
   }
-  
+
   type Query {
     me: User
   }
 
-  
   input BookContent {
     bookId: String
     authors: [String]
     description: String
     title: String
-    media: [BookMedia]
+    media: [MediaDetails]
   }
 
-  input BookMedia {
+  input MediaDetails {
     format: MediaFormat!
     link: String!
   }
@@ -46,15 +45,15 @@ const typeDefs = gql`
   enum MediaFormat {
     IMAGE
   }
-  
+
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
     saveBook(bookId: String!, authors: [String], description: String, title: String): User
     removeBookId(bookId: String!): User
   }
+  
 `;
-
 
 // export the typeDefs
 module.exports = typeDefs;
